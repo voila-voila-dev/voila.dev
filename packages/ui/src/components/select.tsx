@@ -2,41 +2,36 @@
 
 import { Select as SelectPrimitive } from "@base-ui-components/react/select";
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
+import type { ComponentProps } from "react";
 import { cx } from "../index";
 
-function Root<Value, Multiple extends boolean | undefined = false>(
-	props: SelectPrimitive.Root.Props<Value, Multiple>,
-) {
-	return <SelectPrimitive.Root data-slot="select" {...props} />;
+function Root(props: ComponentProps<typeof SelectPrimitive.Root>) {
+	return <SelectPrimitive.Root {...props} />;
 }
 
-function Group({ ...props }: SelectPrimitive.Group.Props) {
-	return <SelectPrimitive.Group data-slot="select-group" {...props} />;
+function Group(props: ComponentProps<typeof SelectPrimitive.Group>) {
+	return <SelectPrimitive.Group {...props} />;
 }
 
 function Value({
 	placeholder,
 	...props
-}: SelectPrimitive.Value.Props & {
+}: ComponentProps<typeof SelectPrimitive.Value> & {
 	placeholder?: string;
 }) {
 	if (!placeholder) {
-		return <SelectPrimitive.Value data-slot="select-value" {...props} />;
+		return <SelectPrimitive.Value {...props} />;
 	}
 
 	return (
 		<SelectPrimitive.Value
 			render={(_, { value }) => {
 				if (value) {
-					return <SelectPrimitive.Value data-slot="select-value" {...props} />;
+					return <SelectPrimitive.Value {...props} />;
 				}
 
 				// Placeholder
-				return (
-					<span data-slot="select-value" className="text-muted-foreground">
-						{placeholder}
-					</span>
-				);
+				return <span className="text-muted-foreground">{placeholder}</span>;
 			}}
 			{...props}
 		/>

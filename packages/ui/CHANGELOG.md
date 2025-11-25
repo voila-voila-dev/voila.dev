@@ -1,5 +1,11 @@
 # @voila.dev/ui
 
+## 1.0.12
+
+### Patch Changes
+
+- Fix select props
+
 ## 1.0.11
 
 ### Patch Changes
