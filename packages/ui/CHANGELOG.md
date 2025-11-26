@@ -1,5 +1,12 @@
 # @voila.dev/ui
 
+## 1.0.13
+
+### Patch Changes
+
+- Add `onCreateButtonClick` and `createButtonText` props to DataTable component for better create button handling
+- Use Button component internally for create button instead of custom React.ReactNode
+
 ## 1.0.12
 
 ### Patch Changes

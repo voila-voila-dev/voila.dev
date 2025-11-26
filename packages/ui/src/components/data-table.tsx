@@ -49,6 +49,9 @@ interface DataTableProps<TData, TValue> {
 	pageSize?: number;
 	filterPlaceholder?: string;
 	onRowSelectionChange?: (selection: Record<string, boolean>) => void;
+	createButton?: React.ReactNode;
+	onCreateButtonClick?: () => void;
+	createButtonText?: string;
 }
 
 // Column Header Component
@@ -250,6 +253,9 @@ function Root<TData, TValue>({
 	pageSize = 10,
 	filterPlaceholder = "Filter...",
 	onRowSelectionChange,
+	createButton,
+	onCreateButtonClick,
+	createButtonText = "Create",
 }: DataTableProps<TData, TValue>) {
 	const [sorting, setSorting] = React.useState<SortingState>(initialSorting);
 	const [columnFilters, setColumnFilters] =
@@ -309,25 +315,36 @@ function Root<TData, TValue>({
 
 	return (
 		<div className="w-full space-y-4">
-			{(enableFiltering || enableColumnVisibility) && (
-				<div className="flex items-center py-4">
-					{enableFiltering && filterableColumn && (
-						<Input
-							placeholder={filterPlaceholder}
-							value={
-								(table
-									.getColumn(filterableColumn)
-									?.getFilterValue() as string) ?? ""
-							}
-							onChange={(event) =>
-								table
-									.getColumn(filterableColumn)
-									?.setFilterValue(event.target.value)
-							}
-							className="max-w-sm"
-						/>
-					)}
-					{enableColumnVisibility && <ViewOptions table={table} />}
+			{(enableFiltering ||
+				enableColumnVisibility ||
+				createButton ||
+				onCreateButtonClick) && (
+				<div className="flex items-center justify-between py-4">
+					<div className="flex items-center space-x-2">
+						{enableFiltering && filterableColumn && (
+							<Input
+								placeholder={filterPlaceholder}
+								value={
+									(table
+										.getColumn(filterableColumn)
+										?.getFilterValue() as string) ?? ""
+								}
+								onChange={(event) =>
+									table
+										.getColumn(filterableColumn)
+										?.setFilterValue(event.target.value)
+								}
+								className="max-w-sm"
+							/>
+						)}
+					</div>
+					<div className="flex items-center space-x-2">
+						{enableColumnVisibility && <ViewOptions table={table} />}
+						{createButton}
+						{onCreateButtonClick && (
+							<Button onClick={onCreateButtonClick}>{createButtonText}</Button>
+						)}
+					</div>
 				</div>
 			)}
 			<div className="overflow-hidden rounded-md border">
