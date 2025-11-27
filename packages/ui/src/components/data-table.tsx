@@ -220,7 +220,7 @@ interface SelectFilterOption {
 
 interface SelectFilterProps
 	extends Omit<
-		React.ComponentProps<typeof NativeSelect>,
+		React.ComponentProps<typeof NativeSelect.Root>,
 		"value" | "onChange" | "children"
 	> {
 	columnId: string;
@@ -243,23 +243,23 @@ function SelectFilter({
 	}
 
 	return (
-		<NativeSelect
+		<NativeSelect.Root
 			data-slot="data-table-select-filter"
 			value={(column.getFilterValue() as string) ?? ""}
-			onChange={(event) => {
+			onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
 				const value = event.target.value;
 				column.setFilterValue(value === "" ? undefined : value);
 			}}
 			className={cx("w-[150px]", className)}
 			{...props}
 		>
-			<option value="">{placeholder}</option>
+			<NativeSelect.Option value="">{placeholder}</NativeSelect.Option>
 			{options.map((option) => (
-				<option key={option.value} value={option.value}>
+				<NativeSelect.Option key={option.value} value={option.value}>
 					{option.label}
-				</option>
+				</NativeSelect.Option>
 			))}
-		</NativeSelect>
+		</NativeSelect.Root>
 	);
 }
 

@@ -325,7 +325,11 @@ export const Basic: Story = {
 
 export const WithPagination: Story = {
 	render: () => (
-		<DataTable.Root columns={basicColumns} data={generatePayments(25)} pageSize={10}>
+		<DataTable.Root
+			columns={basicColumns}
+			data={generatePayments(25)}
+			pageSize={10}
+		>
 			<DataTable.Body />
 			<DataTable.Footer>
 				<DataTable.Pagination />
@@ -336,7 +340,11 @@ export const WithPagination: Story = {
 
 export const WithSorting: Story = {
 	render: () => (
-		<DataTable.Root columns={sortableColumns} data={payments} enableSorting={true}>
+		<DataTable.Root
+			columns={sortableColumns}
+			data={payments}
+			enableSorting={true}
+		>
 			<DataTable.Body />
 		</DataTable.Root>
 	),
@@ -347,7 +355,10 @@ export const WithFiltering: Story = {
 		<DataTable.Root columns={basicColumns} data={payments}>
 			<DataTable.Header>
 				<DataTable.HeaderGroup>
-					<DataTable.SearchInput columnId="email" placeholder="Filter emails..." />
+					<DataTable.SearchInput
+						columnId="email"
+						placeholder="Filter emails..."
+					/>
 				</DataTable.HeaderGroup>
 			</DataTable.Header>
 			<DataTable.Body />
@@ -357,7 +368,11 @@ export const WithFiltering: Story = {
 
 export const WithSelectFilter: Story = {
 	render: () => (
-		<DataTable.Root columns={fullFeaturedColumns} data={payments} enableSorting={true}>
+		<DataTable.Root
+			columns={fullFeaturedColumns}
+			data={payments}
+			enableSorting={true}
+		>
 			<DataTable.Header>
 				<DataTable.HeaderGroup>
 					<DataTable.SelectFilter
@@ -381,7 +396,10 @@ export const WithMultipleFilters: Story = {
 		>
 			<DataTable.Header>
 				<DataTable.HeaderGroup>
-					<DataTable.SearchInput columnId="email" placeholder="Search emails..." />
+					<DataTable.SearchInput
+						columnId="email"
+						placeholder="Search emails..."
+					/>
 					<DataTable.SelectFilter
 						columnId="status"
 						options={statusOptions}
@@ -399,7 +417,11 @@ export const WithMultipleFilters: Story = {
 
 export const WithColumnVisibility: Story = {
 	render: () => (
-		<DataTable.Root columns={basicColumns} data={payments} enableColumnVisibility={true}>
+		<DataTable.Root
+			columns={basicColumns}
+			data={payments}
+			enableColumnVisibility={true}
+		>
 			<DataTable.Header>
 				<DataTable.HeaderGroup />
 				<DataTable.HeaderGroup>
@@ -413,7 +435,11 @@ export const WithColumnVisibility: Story = {
 
 export const WithRowSelection: Story = {
 	render: () => (
-		<DataTable.Root columns={selectableColumns} data={payments} enableRowSelection={true}>
+		<DataTable.Root
+			columns={selectableColumns}
+			data={payments}
+			enableRowSelection={true}
+		>
 			<DataTable.Body />
 		</DataTable.Root>
 	),
@@ -421,7 +447,11 @@ export const WithRowSelection: Story = {
 
 export const WithRowActions: Story = {
 	render: () => (
-		<DataTable.Root columns={columnsWithActions} data={payments} enableRowSelection={true}>
+		<DataTable.Root
+			columns={columnsWithActions}
+			data={payments}
+			enableRowSelection={true}
+		>
 			<DataTable.Body />
 		</DataTable.Root>
 	),
@@ -439,7 +469,10 @@ export const FullFeatured: Story = {
 		>
 			<DataTable.Header>
 				<DataTable.HeaderGroup>
-					<DataTable.SearchInput columnId="email" placeholder="Filter emails..." />
+					<DataTable.SearchInput
+						columnId="email"
+						placeholder="Filter emails..."
+					/>
 					<DataTable.SelectFilter
 						columnId="status"
 						options={statusOptions}
@@ -539,7 +572,10 @@ export const LargeDataset: Story = {
 		>
 			<DataTable.Header>
 				<DataTable.HeaderGroup>
-					<DataTable.SearchInput columnId="email" placeholder="Filter emails..." />
+					<DataTable.SearchInput
+						columnId="email"
+						placeholder="Filter emails..."
+					/>
 					<DataTable.SelectFilter
 						columnId="status"
 						options={statusOptions}
@@ -560,7 +596,11 @@ export const LargeDataset: Story = {
 
 export const WithoutPagination: Story = {
 	render: () => (
-		<DataTable.Root columns={sortableColumns} data={payments} enableSorting={true}>
+		<DataTable.Root
+			columns={sortableColumns}
+			data={payments}
+			enableSorting={true}
+		>
 			<DataTable.Body />
 		</DataTable.Root>
 	),
@@ -588,7 +628,10 @@ export const WithInitialFilters: Story = {
 		>
 			<DataTable.Header>
 				<DataTable.HeaderGroup>
-					<DataTable.SearchInput columnId="email" placeholder="Filter emails..." />
+					<DataTable.SearchInput
+						columnId="email"
+						placeholder="Filter emails..."
+					/>
 				</DataTable.HeaderGroup>
 			</DataTable.Header>
 			<DataTable.Body />
@@ -658,7 +701,10 @@ export const WithHeaderActions: Story = {
 		<DataTable.Root columns={basicColumns} data={payments}>
 			<DataTable.Header>
 				<DataTable.HeaderGroup>
-					<DataTable.SearchInput columnId="email" placeholder="Search payments..." />
+					<DataTable.SearchInput
+						columnId="email"
+						placeholder="Search payments..."
+					/>
 				</DataTable.HeaderGroup>
 				<DataTable.HeaderGroup>
 					<Button>
@@ -674,7 +720,11 @@ export const WithHeaderActions: Story = {
 
 export const WithSelectedCount: Story = {
 	render: () => (
-		<DataTable.Root columns={selectableColumns} data={payments} enableRowSelection={true}>
+		<DataTable.Root
+			columns={selectableColumns}
+			data={payments}
+			enableRowSelection={true}
+		>
 			<DataTable.Header>
 				<DataTable.HeaderGroup>
 					<DataTable.SelectedCount />
@@ -697,7 +747,10 @@ export const FullComposable: Story = {
 		>
 			<DataTable.Header>
 				<DataTable.HeaderGroup>
-					<DataTable.SearchInput columnId="email" placeholder="Search by email..." />
+					<DataTable.SearchInput
+						columnId="email"
+						placeholder="Search by email..."
+					/>
 					<DataTable.SelectFilter
 						columnId="status"
 						options={statusOptions}
