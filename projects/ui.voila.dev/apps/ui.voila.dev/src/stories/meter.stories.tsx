@@ -1,5 +1,5 @@
-import { Meter } from "@voila.dev/ui/components/meter";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Meter } from "@voila.dev/ui/components/meter";
 
 const meta = {
 	title: "UI/Meter",

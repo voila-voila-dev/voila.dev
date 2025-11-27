@@ -6,7 +6,8 @@
 	"scripts": {
 		"dev": "storybook dev -p 6006",
 		"build": "storybook build --output-dir dist",
-		"start": "bun run server.ts"
+		"start": "bun run server.ts",
+		"check-types": "tsc --noEmit"
 	},
 	"dependencies": {
 		"@voila.dev/ui": "workspace:*",

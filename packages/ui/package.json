@@ -7,7 +7,7 @@
 		"directory": "build"
 	},
 	"scripts": {
-		"typecheck": "tsc --noEmit",
+		"check-types": "tsc --noEmit",
 		"icons:generate": "bun run scripts/generate-icons.ts"
 	},
 	"sideEffects": false,

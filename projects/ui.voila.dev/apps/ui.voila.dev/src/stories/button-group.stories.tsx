@@ -407,18 +407,16 @@ export const WithSelect: Story = {
 						<Select.Trigger className="font-mono text-xs">
 							{currency}
 						</Select.Trigger>
-						<Select.Positioner>
-							<Select.Content>
-								{currencies.map((curr) => (
-									<Select.Item key={curr.value} value={curr.value}>
-										{curr.value}{" "}
-										<span className="text-muted-foreground text-xs">
-											{curr.label}
-										</span>
-									</Select.Item>
-								))}
-							</Select.Content>
-						</Select.Positioner>
+						<Select.Content>
+							{currencies.map((curr) => (
+								<Select.Item key={curr.value} value={curr.value}>
+									{curr.value}{" "}
+									<span className="text-muted-foreground text-xs">
+										{curr.label}
+									</span>
+								</Select.Item>
+							))}
+						</Select.Content>
 					</Select.Root>
 					<Input placeholder="10.00" pattern="[0-9]*" />
 				</ButtonGroup.Root>

@@ -6,7 +6,7 @@ import { Checkbox } from "@voila.dev/ui/components/checkbox";
 import { DataTable } from "@voila.dev/ui/components/data-table";
 import { DropdownMenu } from "@voila.dev/ui/components/dropdown-menu";
 import { useCopyToClipboard } from "@voila.dev/ui/hooks/use-copy-to-clipboard";
-import { MoreHorizontalIcon, PlusIcon } from "@voila.dev/ui/icons";
+import { Ellipsis, Plus } from "@voila.dev/ui/icons";
 import * as React from "react";
 
 const meta = {
@@ -38,7 +38,7 @@ function ActionsCell({ payment }: { payment: Payment }) {
 				render={
 					<Button variant="ghost" className="h-8 w-8 p-0">
 						<span className="sr-only">Open menu</span>
-						<MoreHorizontalIcon className="h-4 w-4" />
+						<Ellipsis className="h-4 w-4" />
 					</Button>
 				}
 			/>
@@ -708,7 +708,7 @@ export const WithHeaderActions: Story = {
 				</DataTable.HeaderGroup>
 				<DataTable.HeaderGroup>
 					<Button>
-						<PlusIcon className="mr-2 h-4 w-4" />
+						<Plus className="mr-2 h-4 w-4" />
 						Add Payment
 					</Button>
 				</DataTable.HeaderGroup>
@@ -761,7 +761,7 @@ export const FullComposable: Story = {
 				<DataTable.HeaderGroup>
 					<DataTable.ColumnToggle />
 					<Button>
-						<PlusIcon className="mr-2 h-4 w-4" />
+						<Plus className="mr-2 h-4 w-4" />
 						Create
 					</Button>
 				</DataTable.HeaderGroup>

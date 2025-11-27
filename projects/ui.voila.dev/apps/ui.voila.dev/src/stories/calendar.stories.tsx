@@ -103,15 +103,13 @@ export const MonthYearSelector: Story = {
 						>
 							<Select.Value placeholder="Dropdown" />
 						</Select.Trigger>
-						<Select.Positioner align="center">
-							<Select.Content>
-								{dropdownOptions.map((option) => (
-									<Select.Item key={option.value} value={option.value}>
-										{option.label}
-									</Select.Item>
-								))}
-							</Select.Content>
-						</Select.Positioner>
+						<Select.Content>
+							{dropdownOptions.map((option) => (
+								<Select.Item key={option.value} value={option.value}>
+									{option.label}
+								</Select.Item>
+							))}
+						</Select.Content>
 					</Select.Root>
 				</div>
 			</div>
