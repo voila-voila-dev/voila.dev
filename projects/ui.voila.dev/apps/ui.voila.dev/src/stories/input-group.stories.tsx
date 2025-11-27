@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { InputGroup } from "@voila.dev/ui/components/input-group";
-import { Eye, EyeOff, Search } from "@voila.dev/ui/icons";
+import { Eye, Search } from "@voila.dev/ui/icons";
 
 const meta = {
 	title: "UI/InputGroup",

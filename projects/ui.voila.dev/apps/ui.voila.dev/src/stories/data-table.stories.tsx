@@ -6,7 +6,7 @@ import { Checkbox } from "@voila.dev/ui/components/checkbox";
 import { DataTable } from "@voila.dev/ui/components/data-table";
 import { DropdownMenu } from "@voila.dev/ui/components/dropdown-menu";
 import { useCopyToClipboard } from "@voila.dev/ui/hooks/use-copy-to-clipboard";
-import { MoreHorizontalIcon } from "@voila.dev/ui/icons";
+import { Ellipsis, Plus } from "@voila.dev/ui/icons";
 import * as React from "react";
 
 const meta = {
@@ -38,7 +38,7 @@ function ActionsCell({ payment }: { payment: Payment }) {
 				render={
 					<Button variant="ghost" className="h-8 w-8 p-0">
 						<span className="sr-only">Open menu</span>
-						<MoreHorizontalIcon className="h-4 w-4" />
+						<Ellipsis className="h-4 w-4" />
 					</Button>
 				}
 			/>
@@ -108,6 +108,14 @@ const payments: Payment[] = [
 		status: "failed",
 		email: "carmella@example.com",
 	},
+];
+
+// Status options for SelectFilter
+const statusOptions = [
+	{ label: "Pending", value: "pending" },
+	{ label: "Processing", value: "processing" },
+	{ label: "Success", value: "success" },
+	{ label: "Failed", value: "failed" },
 ];
 
 // Basic columns (no features)
@@ -272,6 +280,9 @@ const fullFeaturedColumns: ColumnDef<Payment>[] = [
 				</Badge>
 			);
 		},
+		filterFn: (row, id, value) => {
+			return value === row.getValue(id);
+		},
 	},
 	{
 		accessorKey: "email",
@@ -306,11 +317,9 @@ const fullFeaturedColumns: ColumnDef<Payment>[] = [
 
 export const Basic: Story = {
 	render: () => (
-		<DataTable.Root
-			columns={basicColumns}
-			data={payments}
-			enablePagination={false}
-		/>
+		<DataTable.Root columns={basicColumns} data={payments}>
+			<DataTable.Body />
+		</DataTable.Root>
 	),
 };
 
@@ -319,9 +328,13 @@ export const WithPagination: Story = {
 		<DataTable.Root
 			columns={basicColumns}
 			data={generatePayments(25)}
-			enablePagination={true}
 			pageSize={10}
-		/>
+		>
+			<DataTable.Body />
+			<DataTable.Footer>
+				<DataTable.Pagination />
+			</DataTable.Footer>
+		</DataTable.Root>
 	),
 };
 
@@ -331,20 +344,74 @@ export const WithSorting: Story = {
 			columns={sortableColumns}
 			data={payments}
 			enableSorting={true}
-			enablePagination={false}
-		/>
+		>
+			<DataTable.Body />
+		</DataTable.Root>
 	),
 };
 
 export const WithFiltering: Story = {
 	render: () => (
+		<DataTable.Root columns={basicColumns} data={payments}>
+			<DataTable.Header>
+				<DataTable.HeaderGroup>
+					<DataTable.SearchInput
+						columnId="email"
+						placeholder="Filter emails..."
+					/>
+				</DataTable.HeaderGroup>
+			</DataTable.Header>
+			<DataTable.Body />
+		</DataTable.Root>
+	),
+};
+
+export const WithSelectFilter: Story = {
+	render: () => (
 		<DataTable.Root
-			columns={basicColumns}
+			columns={fullFeaturedColumns}
 			data={payments}
-			enableFiltering={true}
-			filterPlaceholder="Filter emails..."
-			enablePagination={false}
-		/>
+			enableSorting={true}
+		>
+			<DataTable.Header>
+				<DataTable.HeaderGroup>
+					<DataTable.SelectFilter
+						columnId="status"
+						options={statusOptions}
+						placeholder="All statuses"
+					/>
+				</DataTable.HeaderGroup>
+			</DataTable.Header>
+			<DataTable.Body />
+		</DataTable.Root>
+	),
+};
+
+export const WithMultipleFilters: Story = {
+	render: () => (
+		<DataTable.Root
+			columns={fullFeaturedColumns}
+			data={generatePayments(30)}
+			enableSorting={true}
+		>
+			<DataTable.Header>
+				<DataTable.HeaderGroup>
+					<DataTable.SearchInput
+						columnId="email"
+						placeholder="Search emails..."
+					/>
+					<DataTable.SelectFilter
+						columnId="status"
+						options={statusOptions}
+						placeholder="All statuses"
+					/>
+				</DataTable.HeaderGroup>
+			</DataTable.Header>
+			<DataTable.Body />
+			<DataTable.Footer>
+				<DataTable.Pagination />
+			</DataTable.Footer>
+		</DataTable.Root>
 	),
 };
 
@@ -354,8 +421,15 @@ export const WithColumnVisibility: Story = {
 			columns={basicColumns}
 			data={payments}
 			enableColumnVisibility={true}
-			enablePagination={false}
-		/>
+		>
+			<DataTable.Header>
+				<DataTable.HeaderGroup />
+				<DataTable.HeaderGroup>
+					<DataTable.ColumnToggle />
+				</DataTable.HeaderGroup>
+			</DataTable.Header>
+			<DataTable.Body />
+		</DataTable.Root>
 	),
 };
 
@@ -365,8 +439,9 @@ export const WithRowSelection: Story = {
 			columns={selectableColumns}
 			data={payments}
 			enableRowSelection={true}
-			enablePagination={false}
-		/>
+		>
+			<DataTable.Body />
+		</DataTable.Root>
 	),
 };
 
@@ -376,8 +451,9 @@ export const WithRowActions: Story = {
 			columns={columnsWithActions}
 			data={payments}
 			enableRowSelection={true}
-			enablePagination={false}
-		/>
+		>
+			<DataTable.Body />
+		</DataTable.Root>
 	),
 };
 
@@ -388,12 +464,30 @@ export const FullFeatured: Story = {
 			data={generatePayments(50)}
 			enableRowSelection={true}
 			enableColumnVisibility={true}
-			enableFiltering={true}
-			enablePagination={true}
 			enableSorting={true}
 			pageSize={10}
-			filterPlaceholder="Filter emails..."
-		/>
+		>
+			<DataTable.Header>
+				<DataTable.HeaderGroup>
+					<DataTable.SearchInput
+						columnId="email"
+						placeholder="Filter emails..."
+					/>
+					<DataTable.SelectFilter
+						columnId="status"
+						options={statusOptions}
+						placeholder="All statuses"
+					/>
+				</DataTable.HeaderGroup>
+				<DataTable.HeaderGroup>
+					<DataTable.ColumnToggle />
+				</DataTable.HeaderGroup>
+			</DataTable.Header>
+			<DataTable.Body />
+			<DataTable.Footer>
+				<DataTable.Pagination />
+			</DataTable.Footer>
+		</DataTable.Root>
 	),
 };
 
@@ -445,18 +539,24 @@ export const CustomCellFormatting: Story = {
 		];
 
 		return (
-			<DataTable.Root
-				columns={customColumns}
-				data={payments}
-				enablePagination={false}
-			/>
+			<DataTable.Root columns={customColumns} data={payments}>
+				<DataTable.Body />
+			</DataTable.Root>
 		);
 	},
 };
 
 export const EmptyState: Story = {
 	render: () => (
-		<DataTable.Root columns={basicColumns} data={[]} enablePagination={false} />
+		<DataTable.Root columns={basicColumns} data={[]}>
+			<DataTable.Body
+				emptyState={
+					<DataTable.EmptyState>
+						<p className="text-muted-foreground">No payments found.</p>
+					</DataTable.EmptyState>
+				}
+			/>
+		</DataTable.Root>
 	),
 };
 
@@ -467,12 +567,30 @@ export const LargeDataset: Story = {
 			data={generatePayments(100)}
 			enableRowSelection={true}
 			enableColumnVisibility={true}
-			enableFiltering={true}
-			enablePagination={true}
 			enableSorting={true}
 			pageSize={20}
-			filterPlaceholder="Filter emails..."
-		/>
+		>
+			<DataTable.Header>
+				<DataTable.HeaderGroup>
+					<DataTable.SearchInput
+						columnId="email"
+						placeholder="Filter emails..."
+					/>
+					<DataTable.SelectFilter
+						columnId="status"
+						options={statusOptions}
+						placeholder="All statuses"
+					/>
+				</DataTable.HeaderGroup>
+				<DataTable.HeaderGroup>
+					<DataTable.ColumnToggle />
+				</DataTable.HeaderGroup>
+			</DataTable.Header>
+			<DataTable.Body />
+			<DataTable.Footer>
+				<DataTable.Pagination />
+			</DataTable.Footer>
+		</DataTable.Root>
 	),
 };
 
@@ -482,8 +600,9 @@ export const WithoutPagination: Story = {
 			columns={sortableColumns}
 			data={payments}
 			enableSorting={true}
-			enablePagination={false}
-		/>
+		>
+			<DataTable.Body />
+		</DataTable.Root>
 	),
 };
 
@@ -494,8 +613,9 @@ export const WithInitialSorting: Story = {
 			data={payments}
 			enableSorting={true}
 			initialSorting={[{ id: "amount", desc: true }]}
-			enablePagination={false}
-		/>
+		>
+			<DataTable.Body />
+		</DataTable.Root>
 	),
 };
 
@@ -504,10 +624,18 @@ export const WithInitialFilters: Story = {
 		<DataTable.Root
 			columns={basicColumns}
 			data={payments}
-			enableFiltering={true}
 			initialColumnFilters={[{ id: "email", value: "ken" }]}
-			enablePagination={false}
-		/>
+		>
+			<DataTable.Header>
+				<DataTable.HeaderGroup>
+					<DataTable.SearchInput
+						columnId="email"
+						placeholder="Filter emails..."
+					/>
+				</DataTable.HeaderGroup>
+			</DataTable.Header>
+			<DataTable.Body />
+		</DataTable.Root>
 	),
 };
 
@@ -518,8 +646,15 @@ export const WithInitialColumnVisibility: Story = {
 			data={payments}
 			enableColumnVisibility={true}
 			initialColumnVisibility={{ amount: false }}
-			enablePagination={false}
-		/>
+		>
+			<DataTable.Header>
+				<DataTable.HeaderGroup />
+				<DataTable.HeaderGroup>
+					<DataTable.ColumnToggle />
+				</DataTable.HeaderGroup>
+			</DataTable.Header>
+			<DataTable.Body />
+		</DataTable.Root>
 	),
 };
 
@@ -530,8 +665,9 @@ export const WithInitialRowSelection: Story = {
 			data={payments}
 			enableRowSelection={true}
 			initialRowSelection={{ "0": true, "2": true }}
-			enablePagination={false}
-		/>
+		>
+			<DataTable.Body />
+		</DataTable.Root>
 	),
 };
 
@@ -548,8 +684,9 @@ export const WithRowSelectionCallback: Story = {
 					data={payments}
 					enableRowSelection={true}
 					onRowSelectionChange={setSelectedRows}
-					enablePagination={false}
-				/>
+				>
+					<DataTable.Body />
+				</DataTable.Root>
 				<div className="rounded-md border p-4">
 					<h3 className="font-semibold mb-2">Selected Rows:</h3>
 					<pre className="text-sm">{JSON.stringify(selectedRows, null, 2)}</pre>
@@ -557,4 +694,82 @@ export const WithRowSelectionCallback: Story = {
 			</div>
 		);
 	},
+};
+
+export const WithHeaderActions: Story = {
+	render: () => (
+		<DataTable.Root columns={basicColumns} data={payments}>
+			<DataTable.Header>
+				<DataTable.HeaderGroup>
+					<DataTable.SearchInput
+						columnId="email"
+						placeholder="Search payments..."
+					/>
+				</DataTable.HeaderGroup>
+				<DataTable.HeaderGroup>
+					<Button>
+						<Plus className="mr-2 h-4 w-4" />
+						Add Payment
+					</Button>
+				</DataTable.HeaderGroup>
+			</DataTable.Header>
+			<DataTable.Body />
+		</DataTable.Root>
+	),
+};
+
+export const WithSelectedCount: Story = {
+	render: () => (
+		<DataTable.Root
+			columns={selectableColumns}
+			data={payments}
+			enableRowSelection={true}
+		>
+			<DataTable.Header>
+				<DataTable.HeaderGroup>
+					<DataTable.SelectedCount />
+				</DataTable.HeaderGroup>
+			</DataTable.Header>
+			<DataTable.Body />
+		</DataTable.Root>
+	),
+};
+
+export const FullComposable: Story = {
+	render: () => (
+		<DataTable.Root
+			columns={fullFeaturedColumns}
+			data={generatePayments(30)}
+			enableRowSelection={true}
+			enableColumnVisibility={true}
+			enableSorting={true}
+			pageSize={10}
+		>
+			<DataTable.Header>
+				<DataTable.HeaderGroup>
+					<DataTable.SearchInput
+						columnId="email"
+						placeholder="Search by email..."
+					/>
+					<DataTable.SelectFilter
+						columnId="status"
+						options={statusOptions}
+						placeholder="All statuses"
+					/>
+					<DataTable.SelectedCount />
+				</DataTable.HeaderGroup>
+				<DataTable.HeaderGroup>
+					<DataTable.ColumnToggle />
+					<Button>
+						<Plus className="mr-2 h-4 w-4" />
+						Create
+					</Button>
+				</DataTable.HeaderGroup>
+			</DataTable.Header>
+			<DataTable.Body />
+			<DataTable.Footer>
+				<DataTable.Pagination />
+			</DataTable.Footer>
+		</DataTable.Root>
+	),
 };

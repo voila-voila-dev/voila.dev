@@ -16,15 +16,9 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
 	render: () => (
 		<CheckboxGroup>
-			<Checkbox.Root name="option-1">
-				<Checkbox.Indicator />
-			</Checkbox.Root>
-			<Checkbox.Root name="option-2">
-				<Checkbox.Indicator />
-			</Checkbox.Root>
-			<Checkbox.Root name="option-3">
-				<Checkbox.Indicator />
-			</Checkbox.Root>
+			<Checkbox name="option-1" />
+			<Checkbox name="option-2" />
+			<Checkbox name="option-3" />
 		</CheckboxGroup>
 	),
 };

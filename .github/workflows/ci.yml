@@ -53,5 +53,5 @@ jobs:
         uses: ./.github/actions/install-dependencies
 
       - name: Build packages
-        run: bunx turbo run build --filter='...'
+        run: bun run build
 

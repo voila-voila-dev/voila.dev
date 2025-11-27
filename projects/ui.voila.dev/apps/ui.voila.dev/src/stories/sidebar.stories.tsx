@@ -9,7 +9,6 @@ import {
 	ChevronRight,
 	Command,
 	File,
-	Folder,
 	House,
 	Inbox,
 	LifeBuoy,
@@ -595,49 +594,6 @@ export const NestedSidebars: Story = {
 		</Sidebar.Provider>
 	),
 };
-
-// Story 9: Sidebar with collapsible file tree
-type FileTreeItem = string | [string, FileTreeItem[]];
-
-function FileTreeItem({ item }: { item: FileTreeItem; index: number }) {
-	if (typeof item === "string") {
-		return (
-			<Sidebar.MenuSubItem>
-				<Sidebar.MenuSubButton isActive={item === "button.tsx"}>
-					<File />
-					<span>{item}</span>
-				</Sidebar.MenuSubButton>
-			</Sidebar.MenuSubItem>
-		);
-	}
-
-	const [name, children] = item;
-	return (
-		<Collapsible.Root
-			render={
-				<Sidebar.MenuItem>
-					<Sidebar.MenuButton>
-						<ChevronRight className="transition-transform duration-200 group-data-[state=open]:rotate-90" />
-						<Folder />
-						<span>{name}</span>
-					</Sidebar.MenuButton>
-					<Collapsible.Panel>
-						<Sidebar.MenuSub>
-							{children.map((child, childIndex) => (
-								<FileTreeItem
-									key={childIndex}
-									item={child}
-									index={childIndex}
-								/>
-							))}
-						</Sidebar.MenuSub>
-					</Collapsible.Panel>
-				</Sidebar.MenuItem>
-			}
-			defaultOpen={name === "components" || name === "ui"}
-		/>
-	);
-}
 
 // Story 10: Sidebar in a dialog
 export const InDialog: Story = {

@@ -9,23 +9,28 @@ program
 	.requiredOption("--compose-id <id>", "Compose ID to deploy")
 	.action(async (options) => {
 		try {
-			const response = await fetch("https://cloud.voila.dev/api/trpc/compose.deploy", {
-				method: "POST",
-				headers: {
-					accept: "application/json",
-					"x-api-key": options.apiKey,
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					json: {
-						composeId: options.composeId,
+			const response = await fetch(
+				"https://cloud.voila.dev/api/trpc/compose.deploy",
+				{
+					method: "POST",
+					headers: {
+						accept: "application/json",
+						"x-api-key": options.apiKey,
+						"Content-Type": "application/json",
 					},
-				}),
-			});
+					body: JSON.stringify({
+						json: {
+							composeId: options.composeId,
+						},
+					}),
+				},
+			);
 
 			if (!response.ok) {
 				const errorText = await response.text();
-				console.error(`Deployment failed: ${response.status} ${response.statusText}`);
+				console.error(
+					`Deployment failed: ${response.status} ${response.statusText}`,
+				);
 				console.error(errorText);
 				process.exit(1);
 			}

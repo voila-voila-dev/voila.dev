@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Button } from "@voila.dev/ui/components/button";
-import { Loader, SendHorizonal, Trash } from "@voila.dev/ui/icons";
+import { Loader, SendHorizontal, Trash } from "@voila.dev/ui/icons";
 
 const meta = {
 	title: "UI/Button",
@@ -58,13 +58,13 @@ export const Sizes: Story = {
 			</div>
 			<div className="flex items-center gap-4">
 				<Button size="icon-sm">
-					<SendHorizonal />
+					<SendHorizontal />
 				</Button>
 				<Button size="icon">
-					<SendHorizonal />
+					<SendHorizontal />
 				</Button>
 				<Button size="icon-lg">
-					<SendHorizonal />
+					<SendHorizontal />
 				</Button>
 			</div>
 		</div>
@@ -75,10 +75,10 @@ export const WithIcons: Story = {
 	render: () => (
 		<div className="flex flex-wrap gap-4">
 			<Button size="icon">
-				<SendHorizonal />
+				<SendHorizontal />
 			</Button>
 			<Button>
-				Send <SendHorizonal />
+				Send <SendHorizontal />
 			</Button>
 			<Button variant="destructive">
 				<Trash /> Delete

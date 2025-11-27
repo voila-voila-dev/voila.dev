@@ -1,5 +1,19 @@
 # @voila.dev/ui
 
+## 1.0.14
+
+### Minor Changes
+
+- Refactor DataTable component to be fully composable with a cleaner API structure:
+  - Merge `Provider` and `Root` into single `Root` component
+  - Merge `Content` and `Body` into single `Body` component
+  - Add `Footer` component for pagination and footer content
+  - Add `SelectFilter` component for filtering by predefined options
+  - Remove `enableFiltering` and `enablePagination` props (now implicit based on component usage)
+  - Consistent structure: `Root` → `Header` → `Body` → `Footer`
+- New sub-components: `SelectFilter`, `Footer`
+- Export `useDataTable` hook for custom integrations
+
 ## 1.0.13
 
 ### Patch Changes
