@@ -31,6 +31,7 @@ import { cx } from "../index";
 import { Button } from "./button";
 import { DropdownMenu } from "./dropdown-menu";
 import { Input } from "./input";
+import { NativeSelect } from "./native-select";
 import { Pagination } from "./pagination";
 import { Table } from "./table";
 
@@ -49,21 +50,18 @@ function useDataTable<TData>() {
 		DataTableContext,
 	) as DataTableContextValue<TData> | null;
 	if (!context) {
-		throw new Error("useDataTable must be used within DataTable.Provider");
+		throw new Error("useDataTable must be used within DataTable.Root");
 	}
 	return context;
 }
 
-// Provider Component
-interface ProviderProps<TData, TValue> {
-	children: React.ReactNode;
+// Root Component (with Provider)
+interface RootProps<TData, TValue> extends React.ComponentProps<"div"> {
 	columns: ColumnDef<TData, TValue>[];
 	data: TData[];
 	enableRowSelection?: boolean;
 	enableSorting?: boolean;
-	enableFiltering?: boolean;
 	enableColumnVisibility?: boolean;
-	enablePagination?: boolean;
 	initialSorting?: SortingState;
 	initialColumnFilters?: ColumnFiltersState;
 	initialColumnVisibility?: VisibilityState;
@@ -72,22 +70,22 @@ interface ProviderProps<TData, TValue> {
 	onRowSelectionChange?: (selection: Record<string, boolean>) => void;
 }
 
-function Provider<TData, TValue>({
+function Root<TData, TValue>({
 	children,
 	columns,
 	data,
 	enableRowSelection = false,
 	enableSorting = false,
-	enableFiltering = false,
 	enableColumnVisibility = false,
-	enablePagination = true,
 	initialSorting = [],
 	initialColumnFilters = [],
 	initialColumnVisibility = {},
 	initialRowSelection = {},
 	pageSize = 10,
 	onRowSelectionChange,
-}: ProviderProps<TData, TValue>) {
+	className,
+	...props
+}: RootProps<TData, TValue>) {
 	const [sorting, setSorting] = React.useState<SortingState>(initialSorting);
 	const [columnFilters, setColumnFilters] =
 		React.useState<ColumnFiltersState>(initialColumnFilters);
@@ -103,11 +101,9 @@ function Provider<TData, TValue>({
 		onSortingChange: setSorting,
 		onColumnFiltersChange: setColumnFilters,
 		getCoreRowModel: getCoreRowModel(),
-		getPaginationRowModel: enablePagination
-			? getPaginationRowModel()
-			: undefined,
+		getPaginationRowModel: getPaginationRowModel(),
 		getSortedRowModel: enableSorting ? getSortedRowModel() : undefined,
-		getFilteredRowModel: enableFiltering ? getFilteredRowModel() : undefined,
+		getFilteredRowModel: getFilteredRowModel(),
 		onColumnVisibilityChange: setColumnVisibility,
 		onRowSelectionChange: enableRowSelection
 			? (updater) => {
@@ -120,7 +116,7 @@ function Provider<TData, TValue>({
 		enableRowSelection: enableRowSelection,
 		state: {
 			sorting: enableSorting ? sorting : undefined,
-			columnFilters: enableFiltering ? columnFilters : undefined,
+			columnFilters,
 			columnVisibility: enableColumnVisibility ? columnVisibility : undefined,
 			rowSelection: enableRowSelection ? rowSelection : undefined,
 		},
@@ -146,21 +142,14 @@ function Provider<TData, TValue>({
 		<DataTableContext.Provider
 			value={contextValue as DataTableContextValue<unknown>}
 		>
-			{children}
+			<div
+				data-slot="data-table"
+				className={cx("w-full space-y-4", className)}
+				{...props}
+			>
+				{children}
+			</div>
 		</DataTableContext.Provider>
-	);
-}
-
-// Root Component
-function Root({ className, children, ...props }: React.ComponentProps<"div">) {
-	return (
-		<div
-			data-slot="data-table"
-			className={cx("w-full space-y-4", className)}
-			{...props}
-		>
-			{children}
-		</div>
 	);
 }
 
@@ -173,7 +162,7 @@ function Header({
 	return (
 		<div
 			data-slot="data-table-header"
-			className={cx("flex items-center justify-between gap-4 py-4", className)}
+			className={cx("flex items-center justify-between gap-4", className)}
 			{...props}
 		>
 			{children}
@@ -223,6 +212,57 @@ function SearchInput({ columnId, className, ...props }: SearchInputProps) {
 	);
 }
 
+// SelectFilter Component
+interface SelectFilterOption {
+	label: string;
+	value: string;
+}
+
+interface SelectFilterProps
+	extends Omit<
+		React.ComponentProps<typeof NativeSelect>,
+		"value" | "onChange" | "children"
+	> {
+	columnId: string;
+	options: SelectFilterOption[];
+	placeholder?: string;
+}
+
+function SelectFilter({
+	columnId,
+	options,
+	placeholder = "All",
+	className,
+	...props
+}: SelectFilterProps) {
+	const { table } = useDataTable();
+	const column = table.getColumn(columnId);
+
+	if (!column) {
+		return null;
+	}
+
+	return (
+		<NativeSelect
+			data-slot="data-table-select-filter"
+			value={(column.getFilterValue() as string) ?? ""}
+			onChange={(event) => {
+				const value = event.target.value;
+				column.setFilterValue(value === "" ? undefined : value);
+			}}
+			className={cx("w-[150px]", className)}
+			{...props}
+		>
+			<option value="">{placeholder}</option>
+			{options.map((option) => (
+				<option key={option.value} value={option.value}>
+					{option.label}
+				</option>
+			))}
+		</NativeSelect>
+	);
+}
+
 // ColumnToggle Component
 function ColumnToggle({
 	className,
@@ -267,23 +307,6 @@ function ColumnToggle({
 	);
 }
 
-// Content Component (table wrapper)
-function Content({
-	className,
-	children,
-	...props
-}: React.ComponentProps<"div">) {
-	return (
-		<div
-			data-slot="data-table-content"
-			className={cx("overflow-hidden rounded-md border", className)}
-			{...props}
-		>
-			{children}
-		</div>
-	);
-}
-
 // Body Component (renders the actual table)
 interface BodyProps<TData>
 	extends Omit<React.ComponentProps<"div">, "children"> {
@@ -302,7 +325,11 @@ function Body<TData>({
 	const columns = table.getAllColumns();
 
 	return (
-		<div data-slot="data-table-body" className={className} {...props}>
+		<div
+			data-slot="data-table-body"
+			className={cx("overflow-hidden rounded-md border", className)}
+			{...props}
+		>
 			<Table.Root>
 				<Table.Header>
 					{table.getHeaderGroups().map((headerGroup) => (
@@ -358,7 +385,24 @@ function Body<TData>({
 	);
 }
 
-// DataTablePagination Component
+// Footer Component
+function Footer({
+	className,
+	children,
+	...props
+}: React.ComponentProps<"div">) {
+	return (
+		<div
+			data-slot="data-table-footer"
+			className={cx("flex items-center justify-between", className)}
+			{...props}
+		>
+			{children}
+		</div>
+	);
+}
+
+// Pagination Component
 function DataTablePagination({
 	className,
 	...props
@@ -549,14 +593,14 @@ function SelectedCount({ className, ...props }: React.ComponentProps<"div">) {
 }
 
 export const DataTable = {
-	Provider,
 	Root,
 	Header,
 	HeaderGroup,
 	SearchInput,
+	SelectFilter,
 	ColumnToggle,
-	Content,
 	Body,
+	Footer,
 	Pagination: DataTablePagination,
 	ColumnHeader,
 	EmptyState,
