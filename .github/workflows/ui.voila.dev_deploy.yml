@@ -41,4 +41,4 @@ jobs:
         uses: ./.github/actions/trigger-deployment
         with:
           api-key: ${{ secrets.CLOUD_VOILA_DEV_API_KEY }}
-          compose-id: ${{ secrets.CLOUD_VOILA_DEV_COMPOSE_ID }}
+          compose-id: ${{ vars.CLOUD_VOILA_DEV_COMPOSE_ID }}
