@@ -52,9 +52,7 @@ export const Destructive: Story = {
 				</AlertDialog.Header>
 				<AlertDialog.Footer>
 					<AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
-					<AlertDialog.Action
-						render={<Button variant="destructive">Delete</Button>}
-					/>
+					<AlertDialog.Action variant="destructive">Delete</AlertDialog.Action>
 				</AlertDialog.Footer>
 			</AlertDialog.Content>
 		</AlertDialog.Root>

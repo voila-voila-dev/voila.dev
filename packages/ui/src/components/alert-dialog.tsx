@@ -4,7 +4,7 @@ import { AlertDialog as AlertDialogPrimitive } from "@base-ui-components/react/a
 import type { ComponentProps } from "react";
 
 import { cx } from "../index";
-import { variants as buttonVariants } from "./button";
+import { Button } from "./button";
 
 function Root(props: AlertDialogPrimitive.Root.Props) {
 	return <AlertDialogPrimitive.Root data-slot="alert-dialog" {...props} />;
@@ -61,7 +61,6 @@ function Content({ className, ...props }: AlertDialogPrimitive.Popup.Props) {
 function Header({ className, ...props }: ComponentProps<"div">) {
 	return (
 		<div
-			data-slot="alert-dialog-header"
 			className={cx("flex flex-col gap-2 text-center sm:text-left", className)}
 			{...props}
 		/>
@@ -71,7 +70,6 @@ function Header({ className, ...props }: ComponentProps<"div">) {
 function Footer({ className, ...props }: ComponentProps<"div">) {
 	return (
 		<div
-			data-slot="alert-dialog-footer"
 			className={cx(
 				"flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
 				className,
@@ -84,7 +82,6 @@ function Footer({ className, ...props }: ComponentProps<"div">) {
 function Title({ className, ...props }: AlertDialogPrimitive.Title.Props) {
 	return (
 		<AlertDialogPrimitive.Title
-			data-slot="alert-dialog-title"
 			className={cx("text-lg font-semibold", className)}
 			{...props}
 		/>
@@ -97,27 +94,26 @@ function Description({
 }: AlertDialogPrimitive.Description.Props) {
 	return (
 		<AlertDialogPrimitive.Description
-			data-slot="alert-dialog-description"
 			className={cx("text-sm text-muted-foreground", className)}
 			{...props}
 		/>
 	);
 }
 
-function Action({ className, ...props }: AlertDialogPrimitive.Close.Props) {
-	return (
-		<AlertDialogPrimitive.Close
-			className={cx(buttonVariants(), className)}
-			{...props}
-		/>
-	);
+function Action({
+	...props
+}: ComponentProps<typeof AlertDialogPrimitive.Close> &
+	ComponentProps<typeof Button>) {
+	return <AlertDialogPrimitive.Close render={<Button {...props} />} />;
 }
 
-function Cancel({ className, ...props }: AlertDialogPrimitive.Close.Props) {
+function Cancel({
+	...props
+}: ComponentProps<typeof AlertDialogPrimitive.Close> &
+	ComponentProps<typeof Button>) {
 	return (
 		<AlertDialogPrimitive.Close
-			className={cx(buttonVariants({ variant: "outline" }), className)}
-			{...props}
+			render={<Button variant="outline" {...props} />}
 		/>
 	);
 }
