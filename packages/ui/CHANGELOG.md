@@ -1,5 +1,9 @@
 # @voila.dev/ui
 
+## 1.0.15
+
+- Remove data-table component
+
 ## 1.0.14
 
 ### Minor Changes
