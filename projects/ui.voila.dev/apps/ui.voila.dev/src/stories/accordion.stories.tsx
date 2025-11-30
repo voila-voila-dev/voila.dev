@@ -71,7 +71,7 @@ export const Default: Story = {
 export const SingleSelection: Story = {
 	render: () => (
 		<Accordion.Root
-			className="w-full max-w-md mx-auto space-y-2"
+			className="w-lg space-y-2"
 			defaultValue={[accordionItems[0].value]}
 			multiple={false}
 		>
