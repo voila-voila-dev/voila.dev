@@ -150,21 +150,21 @@ export const Badge: Story = {
 					<Avatar.Image src={avatar1} />
 					<Avatar.Fallback>CN</Avatar.Fallback>
 				</Avatar.Root>
-				<BadgeCheck className="absolute -bottom-1 -right-1 size-4.5 rounded-full fill-blue-500 text-white"></BadgeCheck>
+				<BadgeCheck className="absolute -bottom-1 -right-1 size-4.5 rounded-full fill-blue-500 text-background"></BadgeCheck>
 			</div>
 			<div className="relative">
 				<Avatar.Root className="size-10">
 					<Avatar.Image src={avatar1} />
 					<Avatar.Fallback>CN</Avatar.Fallback>
 				</Avatar.Root>
-				<BadgeMinus className="absolute -bottom-1 -right-1 size-4.5 rounded-full fill-amber-500 text-white"></BadgeMinus>
+				<BadgeMinus className="absolute -bottom-1 -right-1 size-4.5 rounded-full fill-amber-500 text-background"></BadgeMinus>
 			</div>
 			<div className="relative">
 				<Avatar.Root className="size-10">
 					<Avatar.Image src={avatar1} />
 					<Avatar.Fallback>CN</Avatar.Fallback>
 				</Avatar.Root>
-				<BadgeX className="absolute -bottom-1 -right-1 size-4.5 rounded-full fill-red-500 text-white"></BadgeX>
+				<BadgeX className="absolute -bottom-1 -right-1 size-4.5 rounded-full fill-red-500 text-background"></BadgeX>
 			</div>
 		</div>
 	),
