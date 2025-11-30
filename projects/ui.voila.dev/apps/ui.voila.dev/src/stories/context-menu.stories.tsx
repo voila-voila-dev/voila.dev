@@ -91,10 +91,10 @@ export const WithCheckboxes: Story = {
 			</ContextMenu.Trigger>
 			<ContextMenu.Positioner>
 				<ContextMenu.Content>
-					<ContextMenu.CheckboxItem checked>
+					<ContextMenu.CheckboxItem defaultChecked>
 						Show Status Bar
 					</ContextMenu.CheckboxItem>
-					<ContextMenu.CheckboxItem checked>
+					<ContextMenu.CheckboxItem defaultChecked>
 						Show Activity Bar
 					</ContextMenu.CheckboxItem>
 					<ContextMenu.CheckboxItem>Show Minimap</ContextMenu.CheckboxItem>
@@ -114,7 +114,7 @@ export const WithRadioGroup: Story = {
 			</ContextMenu.Trigger>
 			<ContextMenu.Positioner>
 				<ContextMenu.Content>
-					<ContextMenu.RadioGroup value="light">
+					<ContextMenu.RadioGroup defaultValue="light">
 						<ContextMenu.RadioItem value="light">Light</ContextMenu.RadioItem>
 						<ContextMenu.RadioItem value="dark">Dark</ContextMenu.RadioItem>
 						<ContextMenu.RadioItem value="system">System</ContextMenu.RadioItem>
@@ -145,10 +145,7 @@ export const WithSubmenu: Story = {
 					</ContextMenu.Item>
 					<ContextMenu.Separator />
 					<ContextMenu.Sub>
-						<ContextMenu.SubTrigger>
-							<Plus />
-							More Tools
-						</ContextMenu.SubTrigger>
+						<ContextMenu.SubTrigger>More Tools</ContextMenu.SubTrigger>
 						<ContextMenu.Positioner>
 							<ContextMenu.SubContent>
 								<ContextMenu.Item>
