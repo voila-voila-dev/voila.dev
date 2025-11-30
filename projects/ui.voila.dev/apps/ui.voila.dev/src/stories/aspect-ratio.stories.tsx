@@ -19,16 +19,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-function Image() {
-	return (
-		<img
-			alt="Landscape"
-			src={landscapeImage}
-			className="h-full w-full object-cover rounded-lg"
-		/>
-	);
-}
-
 export const Default: Story = {
 	args: {
 		ratio: "16/9",
@@ -36,7 +26,11 @@ export const Default: Story = {
 	render: (args) => (
 		<div className="w-lg">
 			<AspectRatio ratio={args.ratio} className="rounded-lg">
-				<Image />
+				<img
+					alt="Landscape"
+					src={landscapeImage}
+					className="h-full w-full object-cover rounded-lg"
+				/>
 			</AspectRatio>
 		</div>
 	),
