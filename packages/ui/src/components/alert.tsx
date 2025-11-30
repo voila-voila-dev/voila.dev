@@ -8,7 +8,8 @@ const variants = cva({
 	variants: {
 		variant: {
 			default: "text-card-foreground",
-			destructive: "text-destructive [&>svg]:text-current",
+			destructive:
+				"text-destructive [&>svg]:text-current bg-destructive/10 border-destructive/20",
 		},
 	},
 	defaultVariants: {
