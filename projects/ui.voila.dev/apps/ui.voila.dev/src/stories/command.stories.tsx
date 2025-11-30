@@ -1,14 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Button } from "@voila.dev/ui/components/button";
 import { Command } from "@voila.dev/ui/components/command";
-import {
-	Calendar,
-	FileText,
-	Inbox,
-	Search,
-	Settings,
-	User,
-} from "@voila.dev/ui/icons";
+import { Calendar, FileText, Inbox, Settings, User } from "@voila.dev/ui/icons";
 import * as React from "react";
 
 const meta = {
@@ -96,10 +89,7 @@ export const InDialog: Story = {
 
 		return (
 			<>
-				<Button onClick={() => setOpen(true)}>
-					<Search />
-					Open Command Palette
-				</Button>
+				<Button onClick={() => setOpen(true)}>Open Command Palette</Button>
 				<Command.Dialog open={open} onOpenChange={setOpen}>
 					<Command.Input placeholder="Type a command or search..." />
 					<Command.List>
