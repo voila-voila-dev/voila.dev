@@ -47,7 +47,7 @@ export const Default: Story = {
 
 export const WithValue: Story = {
 	args: {
-		value:
+		defaultValue:
 			"This is a longer message that demonstrates how the textarea looks with content.",
 	},
 };
