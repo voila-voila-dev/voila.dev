@@ -1,5 +1,9 @@
 # @voila.dev/ui
 
+## 1.0.16
+
+- DateInput: Set the default month to the current value
+
 ## 1.0.15
 
 - Remove data-table component

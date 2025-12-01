@@ -45,6 +45,7 @@ export function DateInput({
 			<Popover.Positioner align="start">
 				<Popover.Content className="w-auto overflow-hidden p-0">
 					<Calendar
+						defaultMonth={value}
 						{...calendarProps}
 						mode="single"
 						selected={value}
