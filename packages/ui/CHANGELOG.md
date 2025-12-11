@@ -1,5 +1,9 @@
 # @voila.dev/ui
 
+## 1.0.17
+
+- Toolbar: Fix separator and group components to work with data orientation
+
 ## 1.0.16
 
 - DateInput: Set the default month to the current value
