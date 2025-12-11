@@ -1,9 +1,9 @@
 "use client";
 
-import { Separator as SeparatorPrimitive } from "@base-ui-components/react/separator";
 import { Toolbar as ToolbarPrimitive } from "@base-ui-components/react/toolbar";
 import type { ComponentProps } from "react";
 import { cva, cx, type VariantProps } from "../index";
+import { Separator as SeparatorComponent } from "./separator";
 
 const rootVariants = cva({
 	base: [
@@ -108,14 +108,14 @@ function Link({
 function Separator({
 	className,
 	...props
-}: ComponentProps<typeof SeparatorPrimitive>) {
+}: ComponentProps<typeof SeparatorComponent>) {
 	return (
-		<SeparatorPrimitive
+		<SeparatorComponent
 			data-slot="toolbar-separator"
 			className={cx(
-				"shrink-0 bg-border",
-				"data-[orientation=horizontal]:h-full data-[orientation=horizontal]:w-px",
-				"data-[orientation=vertical]:h-px data-[orientation=vertical]:w-full",
+				"bg-border",
+				"data-[orientation=horizontal]:h-4 data-[orientation=horizontal]:w-px",
+				"data-[orientation=vertical]:h-px data-[orientation=vertical]:w-4",
 				"mx-1 my-0.5",
 				"data-[orientation=horizontal]:my-1 data-[orientation=horizontal]:mx-0.5",
 				className,

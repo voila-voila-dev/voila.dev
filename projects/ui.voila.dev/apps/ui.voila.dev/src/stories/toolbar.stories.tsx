@@ -29,13 +29,17 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
 	render: () => (
 		<Toolbar.Root>
-			<Toolbar.Button aria-label="Bold">
+			<Toolbar.Button render={<Toggle />} value="bold" aria-label="Bold">
 				<Bold />
 			</Toolbar.Button>
-			<Toolbar.Button aria-label="Italic">
+			<Toolbar.Button render={<Toggle />} value="italic" aria-label="Italic">
 				<Italic />
 			</Toolbar.Button>
-			<Toolbar.Button aria-label="Underline">
+			<Toolbar.Button
+				render={<Toggle />}
+				value="underline"
+				aria-label="Underline"
+			>
 				<Underline />
 			</Toolbar.Button>
 			<Toolbar.Separator />
@@ -50,28 +54,44 @@ export const WithGroups: Story = {
 	render: () => (
 		<Toolbar.Root>
 			<Toolbar.Group aria-label="Text formatting">
-				<Toolbar.Button aria-label="Bold">
+				<Toolbar.Button render={<Toggle />} value="bold" aria-label="Bold">
 					<Bold />
 				</Toolbar.Button>
-				<Toolbar.Button aria-label="Italic">
+				<Toolbar.Button render={<Toggle />} value="italic" aria-label="Italic">
 					<Italic />
 				</Toolbar.Button>
-				<Toolbar.Button aria-label="Underline">
+				<Toolbar.Button
+					render={<Toggle />}
+					value="underline"
+					aria-label="Underline"
+				>
 					<Underline />
 				</Toolbar.Button>
 			</Toolbar.Group>
 			<Toolbar.Separator />
-			<Toolbar.Group aria-label="Alignment">
-				<Toolbar.Button aria-label="Align left">
+			<ToggleGroup.Root aria-label="Alignment">
+				<Toolbar.Button
+					render={<Toggle />}
+					aria-label="Align left"
+					value="align-left"
+				>
 					<TextAlignStart />
 				</Toolbar.Button>
-				<Toolbar.Button aria-label="Align center">
+				<Toolbar.Button
+					render={<Toggle />}
+					aria-label="Align center"
+					value="align-center"
+				>
 					<TextAlignCenter />
 				</Toolbar.Button>
-				<Toolbar.Button aria-label="Align right">
+				<Toolbar.Button
+					render={<Toggle />}
+					aria-label="Align right"
+					value="align-right"
+				>
 					<TextAlignEnd />
 				</Toolbar.Button>
-			</Toolbar.Group>
+			</ToggleGroup.Root>
 			<Toolbar.Separator />
 			<Toolbar.Group aria-label="Numerical format">
 				<Toolbar.Button aria-label="Format as currency">
@@ -88,21 +108,19 @@ export const WithGroups: Story = {
 export const WithToggleGroup: Story = {
 	render: () => (
 		<Toolbar.Root>
-			<ToggleGroup.Root>
-				<Toolbar.Button render={<Toggle />} aria-label="Bold" value="bold">
-					<Bold />
-				</Toolbar.Button>
-				<Toolbar.Button render={<Toggle />} aria-label="Italic" value="italic">
-					<Italic />
-				</Toolbar.Button>
-				<Toolbar.Button
-					render={<Toggle />}
-					aria-label="Underline"
-					value="underline"
-				>
-					<Underline />
-				</Toolbar.Button>
-			</ToggleGroup.Root>
+			<Toolbar.Button render={<Toggle />} value="bold" aria-label="Bold">
+				<Bold />
+			</Toolbar.Button>
+			<Toolbar.Button render={<Toggle />} value="italic" aria-label="Italic">
+				<Italic />
+			</Toolbar.Button>
+			<Toolbar.Button
+				render={<Toggle />}
+				value="underline"
+				aria-label="Underline"
+			>
+				<Underline />
+			</Toolbar.Button>
 			<Toolbar.Separator />
 			<ToggleGroup.Root aria-label="Alignment">
 				<Toolbar.Button
@@ -188,25 +206,43 @@ export const WithInput: Story = {
 export const Vertical: Story = {
 	render: () => (
 		<Toolbar.Root orientation="vertical">
-			<Toolbar.Button aria-label="Bold">
+			<Toolbar.Button render={<Toggle />} value="bold" aria-label="Bold">
 				<Bold />
 			</Toolbar.Button>
-			<Toolbar.Button aria-label="Italic">
+			<Toolbar.Button render={<Toggle />} value="italic" aria-label="Italic">
 				<Italic />
 			</Toolbar.Button>
-			<Toolbar.Button aria-label="Underline">
+			<Toolbar.Button
+				render={<Toggle />}
+				value="underline"
+				aria-label="Underline"
+			>
 				<Underline />
 			</Toolbar.Button>
-			<Toolbar.Separator />
-			<Toolbar.Button aria-label="Align left">
-				<TextAlignStart />
-			</Toolbar.Button>
-			<Toolbar.Button aria-label="Align center">
-				<TextAlignCenter />
-			</Toolbar.Button>
-			<Toolbar.Button aria-label="Align right">
-				<TextAlignEnd />
-			</Toolbar.Button>
+			<Toolbar.Separator orientation="vertical" />
+			<ToggleGroup.Root aria-label="Alignment" className="flex-col gap-1">
+				<Toolbar.Button
+					render={<Toggle />}
+					aria-label="Align left"
+					value="align-left"
+				>
+					<TextAlignStart />
+				</Toolbar.Button>
+				<Toolbar.Button
+					render={<Toggle />}
+					aria-label="Align center"
+					value="align-center"
+				>
+					<TextAlignCenter />
+				</Toolbar.Button>
+				<Toolbar.Button
+					render={<Toggle />}
+					aria-label="Align right"
+					value="align-right"
+				>
+					<TextAlignEnd />
+				</Toolbar.Button>
+			</ToggleGroup.Root>
 		</Toolbar.Root>
 	),
 };
