@@ -796,7 +796,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
 									className={cx(
 										"flex items-center gap-1",
 										singleLine
-											? "overflow-x-auto multiselect-singleline-scroll"
+											? "overflow-x-auto"
 											: "flex-wrap",
 										responsiveSettings.compactMode && "gap-0.5",
 									)}
@@ -1021,7 +1021,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
 								)}
 								<Command.List
 									className={cx(
-										"max-h-[40vh] overflow-y-auto multiselect-scrollbar",
+										"max-h-[40vh] overflow-y-auto",
 										screenSize === "mobile" && "max-h-[50vh]",
 										"overscroll-behavior-y-contain",
 									)}
