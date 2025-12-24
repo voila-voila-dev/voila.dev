@@ -1,11 +1,7 @@
 {
 	"name": "@voila.dev/ui",
 	"type": "module",
-	"version": "1.0.17",
-	"publishConfig": {
-		"access": "public",
-		"directory": "build"
-	},
+	"version": "1.0.18",
 	"scripts": {
 		"check-types": "tsc --noEmit",
 		"icons:generate": "bun run scripts/generate-icons.ts"

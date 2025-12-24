@@ -1,5 +1,9 @@
 # @voila.dev/ui
 
+## 1.0.18
+
+- Table: Remove "use client" directive
+
 ## 1.0.17
 
 - Toolbar: Fix separator and group components to work with data orientation
