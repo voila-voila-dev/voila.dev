@@ -1,0 +1,46 @@
+diff --git a/esm/store/useStore.js b/esm/store/useStore.js
+index db3b920ca7d62d93b120313f79b9d1dfff8931e4..0e011588dceac6aace7d626bbc7b57b12212538f 100644
+--- a/esm/store/useStore.js
++++ b/esm/store/useStore.js
+@@ -1,5 +1,5 @@
+-// We need to import the shim because React 17 does not support the `useSyncExternalStore` API.
+-import { useSyncExternalStoreWithSelector } from 'use-sync-external-store/shim/with-selector';
++import * as React from 'react';
++
+ /**
+  * Returns a value from the store. The value is derived from the store's state using the provided selector function.
+  * Updates to the store's other properties will not cause re-renders.
+@@ -11,6 +11,6 @@ import { useSyncExternalStoreWithSelector } from 'use-sync-external-store/shim/w
+  * @param a3 Optional third argument for the selector function.
+  */
+ export function useStore(store, selector, a1, a2, a3) {
+-  const selectorWithArgs = state => selector(state, a1, a2, a3);
+-  return useSyncExternalStoreWithSelector(store.subscribe, store.getSnapshot, store.getSnapshot, selectorWithArgs);
++  const getSnapshot = () => selector(store.getSnapshot(), a1, a2, a3);
++  return React.useSyncExternalStore(store.subscribe, getSnapshot, getSnapshot);
+ }
+\ No newline at end of file
+diff --git a/store/useStore.js b/store/useStore.js
+index 67925ace51b0727a4d161e232f38ef68ffd7cf33..f20828f76536f0ccc9d4b9efa800d6cfe810a959 100644
+--- a/store/useStore.js
++++ b/store/useStore.js
+@@ -4,8 +4,7 @@ Object.defineProperty(exports, "__esModule", {
+   value: true
+ });
+ exports.useStore = useStore;
+-var _withSelector = require("use-sync-external-store/shim/with-selector");
+-// We need to import the shim because React 17 does not support the `useSyncExternalStore` API.
++var React = require("react");
+ 
+ /**
+  * Returns a value from the store. The value is derived from the store's state using the provided selector function.
+@@ -18,6 +17,6 @@ var _withSelector = require("use-sync-external-store/shim/with-selector");
+  * @param a3 Optional third argument for the selector function.
+  */
+ function useStore(store, selector, a1, a2, a3) {
+-  const selectorWithArgs = state => selector(state, a1, a2, a3);
+-  return (0, _withSelector.useSyncExternalStoreWithSelector)(store.subscribe, store.getSnapshot, store.getSnapshot, selectorWithArgs);
++  const getSnapshot = () => selector(store.getSnapshot(), a1, a2, a3);
++  return React.useSyncExternalStore(store.subscribe, getSnapshot, getSnapshot);
+ }
+\ No newline at end of file

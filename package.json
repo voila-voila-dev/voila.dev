@@ -46,5 +46,9 @@
 		"@changesets/cli": "^2.27.9",
 		"lefthook": "^2.0.4",
 		"turbo": "^2.6.1"
+	},
+	"patchedDependencies": {
+		"@base-ui-components/utils@0.1.2": "patches/@base-ui-components%2Futils@0.1.2.patch",
+		"@base-ui-components/react@1.0.0-beta.4": "patches/@base-ui-components%2Freact@1.0.0-beta.4.patch"
 	}
 }

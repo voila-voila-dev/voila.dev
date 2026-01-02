@@ -17,7 +17,7 @@
     },
     "packages/ui": {
       "name": "@voila.dev/ui",
-      "version": "1.0.2",
+      "version": "1.0.19",
       "dependencies": {
         "@base-ui-components/react": "^1.0.0-beta.4",
         "@tanstack/react-table": "^8.21.3",
@@ -49,7 +49,7 @@
     },
     "projects/ui.voila.dev/apps/ui.voila.dev": {
       "name": "@ui.voila.dev/ui.voila.dev",
-      "version": "0.0.0",
+      "version": "0.0.4",
       "dependencies": {
         "@tailwindcss/vite": "catalog:ui",
         "@voila.dev/ui": "workspace:*",
@@ -82,6 +82,10 @@
         "typescript": "catalog:",
       },
     },
+  },
+  "patchedDependencies": {
+    "@base-ui-components/utils@0.1.2": "patches/@base-ui-components%2Futils@0.1.2.patch",
+    "@base-ui-components/react@1.0.0-beta.4": "patches/@base-ui-components%2Freact@1.0.0-beta.4.patch",
   },
   "catalog": {
     "@types/bun": "^1.3.2",

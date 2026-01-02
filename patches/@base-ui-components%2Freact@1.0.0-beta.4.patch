@@ -1,0 +1,19 @@
+diff --git a/esm/unstable-use-media-query/index.js b/esm/unstable-use-media-query/index.js
+index f4364c23157f988ecde32b6adda4d0149a711b48..e0180f08863bd3e431cc30e56eb72b2dc41fafbf 100644
+--- a/esm/unstable-use-media-query/index.js
++++ b/esm/unstable-use-media-query/index.js
+@@ -1,5 +1,4 @@
+ import * as React from 'react';
+-import { useSyncExternalStore } from 'use-sync-external-store/shim';
+ export function useMediaQuery(query, options) {
+   // Wait for jsdom to support the match media feature.
+   // All the browsers Base UI support have this built-in.
+@@ -38,7 +37,7 @@ export function useMediaQuery(query, options) {
+       };
+     }];
+   }, [getDefaultSnapshot, matchMedia, query]);
+-  const match = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
++  const match = React.useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+   if (process.env.NODE_ENV !== 'production') {
+     // eslint-disable-next-line react-hooks/rules-of-hooks
+     React.useDebugValue({

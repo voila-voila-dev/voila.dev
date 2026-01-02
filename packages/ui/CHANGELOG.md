@@ -1,5 +1,10 @@
 # @voila.dev/ui
 
+## 1.0.19
+
+- Patch `@base-ui-components/react` and `@base-ui-components/utils` to use React 19's native `useSyncExternalStore` instead of the `use-sync-external-store` shim
+
+
 ## 1.0.18
 
 - Table: Remove "use client" directive
