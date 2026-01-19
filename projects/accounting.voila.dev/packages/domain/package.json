@@ -1,0 +1,9 @@
+{
+	"name": "@accounting.voila.dev/domain",
+	"dependencies": {
+		"effect": "^3.19.14"
+	},
+	"devDependencies": {
+		"@types/bun": "1.3.6"
+	}
+}
